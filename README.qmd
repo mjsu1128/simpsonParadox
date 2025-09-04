@@ -115,20 +115,24 @@ This is Simpson's Paradox in action. The species variable is a **confounding var
 ```{r}
 #| message: false
 #| warning: false
-#| fig-cap: "Side-by-Side Comparison: Simpson's Paradox in Action"
+#| fig-cap: "Simpson's Paradox: The Same Data, Two Different Stories"
+#| fig-width: 16
+#| fig-height: 8
 
 # Create the side-by-side comparison using patchwork
 comparison_plot <- plot1 + plot2 +
-  plot_layout(guides = "collect", width = c(1, 1), ncol = 2) +
+  plot_layout(ncol = 2, widths = c(1, 1)) +
   plot_annotation(
-    title = "Simpson's Paradox: The Same Data, Two Different Stories",
-    subtitle = "Left: Overall relationship appears positive | Right: Within-species relationships are actually negative",
-    caption = "This paradox demonstrates why we must always examine data at multiple levels of aggregation",
-    theme = theme(plot.title = element_text(size = 16, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-                  plot.subtitle = element_text(size = 12, hjust = 0.5, color = "darkgray", margin = margin(b = 20)),
-                  plot.caption = element_text(size = 10, face = "italic", hjust = 0, color = "darkblue", margin = margin(t = 20)),
-                  plot.title.position = "plot", 
-                  plot.caption.position = "plot")
+    title = "Simpson's Paradox: When Aggregation Lies",
+    subtitle = "The same penguin data tells two completely different stories depending on whether we consider species grouping",
+    caption = "Left: Overall relationship shows positive correlation | Right: Species-specific relationships show negative correlation\nThis reversal of trends when data is grouped is the essence of Simpson's Paradox",
+    theme = theme_minimal(18) +
+      theme(
+        plot.title = element_text(size = 24, face = "bold", hjust = 0.5, margin = margin(b = 10)),
+        plot.subtitle = element_text(size = 16, hjust = 0.5, margin = margin(b = 25), lineheight = 1.2),
+        plot.caption = element_text(size = 14, hjust = 0, face = "italic", 
+                                   margin = margin(t = 25), lineheight = 1.4)
+      )
   )
 
 comparison_plot
