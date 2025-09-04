@@ -119,13 +119,13 @@ This is Simpson's Paradox in action. The species variable is a **confounding var
 #| fig-width: 16
 #| fig-height: 8
 
-# Create the side-by-side comparison using patchwork
-comparison_plot <- plot1 + plot2 +
-  plot_layout(ncol = 2, widths = c(1, 1)) +
+# Create the stacked comparison using patchwork
+comparison_plot <- plot1 / plot2 +
+  plot_layout(nrow = 2, heights = c(1, 1)) +
   plot_annotation(
     title = "Simpson's Paradox: When Aggregation Lies",
     subtitle = "The same penguin data tells two completely different stories depending on whether we consider species grouping",
-    caption = "Left: Overall relationship shows positive correlation | Right: Species-specific relationships show negative correlation\nThis reversal of trends when data is grouped is the essence of Simpson's Paradox",
+    caption = "Top: Overall relationship shows positive correlation | Bottom: Species-specific relationships show negative correlation\nThis reversal of trends when data is grouped is the essence of Simpson's Paradox",
     theme = theme_minimal(18) +
       theme(
         plot.title = element_text(size = 24, face = "bold", hjust = 0.5, margin = margin(b = 10)),
