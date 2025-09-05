@@ -28,6 +28,11 @@ if (!require(patchwork, quietly = TRUE)) {
   library(patchwork)
 }
 
+if (!require(palmerpenguins, quietly = TRUE)) {
+  install.packages("palmerpenguins")
+  library(palmerpenguins)
+}
+
 library(ggplot2)
 library(palmerpenguins)
 data(penguins)
@@ -112,22 +117,27 @@ relationship when we aggregate the data.
 ### C. Side-by-Side Comparison
 
 ``` r
-# Create the side-by-side comparison using patchwork
-comparison_plot <- plot1 + plot2 + 
+# Create the stacked comparison using patchwork
+comparison_plot <- plot1 / plot2 +
+  plot_layout(nrow = 2, heights = c(1, 1)) +
   plot_annotation(
-    title = "Simpson's Paradox: The Same Data, Two Different Stories",
-    subtitle = "Left: Overall relationship appears positive | Right: Within-species relationships are actually negative",
-    caption = "This paradox demonstrates why we must always examine data at multiple levels of aggregation",
-    theme = theme(plot.title = element_text(size = 18, face = "bold"),
-                  plot.subtitle = element_text(size = 14),
-                  plot.caption = element_text(size = 12, face = "italic", hjust = 0))
+    title = "Simpson's Paradox: When Aggregation Lies",
+    subtitle = "The same penguin data tells two completely different stories depending on whether we consider species grouping",
+    caption = "Top: Overall relationship shows positive correlation | Bottom: Species-specific relationships show negative correlation\nThis reversal of trends when data is grouped is the essence of Simpson's Paradox",
+    theme = theme_minimal(18) +
+      theme(
+        plot.title = element_text(size = 24, face = "bold", hjust = 0.5, margin = margin(b = 10)),
+        plot.subtitle = element_text(size = 16, hjust = 0.5, margin = margin(b = 25), lineheight = 1.2),
+        plot.caption = element_text(size = 14, hjust = 0, face = "italic", 
+                                   margin = margin(t = 25), lineheight = 1.4)
+      )
   )
 
 comparison_plot
 ```
 
-![Side-by-Side Comparison: Simpson’s Paradox in
-Action](README_files/figure-commonmark/unnamed-chunk-3-1.png)
+![Simpson’s Paradox: The Same Data, Two Different
+Stories](README_files/figure-commonmark/unnamed-chunk-3-1.png)
 
 **What you see:** A powerful visualization that makes Simpson’s Paradox
 crystal clear - the same data telling two completely different stories
